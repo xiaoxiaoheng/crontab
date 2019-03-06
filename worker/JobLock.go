@@ -28,7 +28,7 @@ func InitJobLock(jobName string, kv clientv3.KV, lease clientv3.Lease) (jobLock 
 	return
 }
 
-// 尝试上锁
+// 尝试上锁，分布式锁
 func (jobLock *JobLock) TryLock() (err error) {
 	var (
 		leaseGrantResp *clientv3.LeaseGrantResponse

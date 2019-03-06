@@ -1,12 +1,12 @@
 package master
 
 import (
-	"github.com/mongodb/mongo-go-driver/mongo"
 	"context"
+	"github.com/mongodb/mongo-go-driver/mongo"
 	"github.com/mongodb/mongo-go-driver/mongo/clientopt"
+	"github.com/mongodb/mongo-go-driver/mongo/findopt"
 	"time"
 	"github.com/owenliang/crontab/common"
-	"github.com/mongodb/mongo-go-driver/mongo/findopt"
 )
 
 // mongodb日志管理
@@ -53,7 +53,6 @@ func (logMgr *LogMgr) ListLog(name string, skip int, limit int) (logArr []*commo
 
 	// 过滤条件
 	filter = &common.JobLogFilter{JobName: name}
-
 	// 按照任务开始时间倒排
 	logSort = &common.SortLogByStartTime{SortOrder: -1}
 

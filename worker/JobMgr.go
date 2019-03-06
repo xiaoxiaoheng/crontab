@@ -101,12 +101,14 @@ func (jobMgr *JobMgr) watchKiller() {
 		for watchResp = range watchChan {
 			for _, watchEvent = range watchResp.Events {
 				switch watchEvent.Type {
+				// 此处对应于用户直接操作图形界面的killer操作
 				case mvccpb.PUT: // 杀死任务事件
 					jobName = common.ExtractKillerName(string(watchEvent.Kv.Key))
 					job = &common.Job{Name: jobName}
 					jobEvent = common.BuildJobEvent(common.JOB_EVENT_KILL, job)
 					// 事件推给scheduler
 					G_scheduler.PushJobEvent(jobEvent)
+				// key过期，自动删除任务
 				case mvccpb.DELETE: // killer标记过期, 被自动删除
 				}
 			}

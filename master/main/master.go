@@ -16,7 +16,8 @@ var (
 func initArgs() {
 	// master -config ./master.json -xxx 123 -yyy ddd
 	// master -h
-	flag.StringVar(&confFile, "config", "./master.json", "指定master.json")
+	flag.StringVar(&confFile, "config", "./master/main/master.json", "指定master.json")
+	// flag.StringVar(&confFile, "config", "./master.json", "指定master.json")
 	flag.Parse()
 }
 
@@ -30,9 +31,8 @@ func main() {
 		err error
 	)
 
-	// 初始化命令行参数
+	// 初始化命令行参数.指定配置文件
 	initArgs()
-
 	// 初始化线程
 	initEnv()
 
@@ -69,5 +69,5 @@ func main() {
 	return
 
 ERR:
-	fmt.Println(err)
+	fmt.Println(err.Error())
 }

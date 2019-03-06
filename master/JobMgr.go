@@ -1,12 +1,12 @@
 package master
 
 import (
-	"github.com/coreos/etcd/clientv3"
-	"time"
-	"github.com/owenliang/crontab/common"
-	"encoding/json"
 	"context"
+	"encoding/json"
+	"github.com/coreos/etcd/clientv3"
 	"github.com/coreos/etcd/mvcc/mvccpb"
+	"github.com/owenliang/crontab/common"
+	"time"
 )
 
 // 任务管理器
@@ -122,7 +122,6 @@ func (jobMgr *JobMgr) ListJobs() (jobList []*common.Job, err error) {
 		kvPair *mvccpb.KeyValue
 		job *common.Job
 	)
-
 	// 任务保存的目录
 	dirKey = common.JOB_SAVE_DIR
 
@@ -159,7 +158,7 @@ func (jobMgr *JobMgr) KillJob(name string) (err error) {
 	// 通知worker杀死对应任务
 	killerKey = common.JOB_KILLER_DIR + name
 
-	// 让worker监听到一次put操作, 创建一个租约让其稍后自动过期即可
+	// 让worker监听到一次put操作, 创建一个租约让其稍后自动过期即可，设置过期时间
 	if leaseGrantResp, err = jobMgr.lease.Grant(context.TODO(), 1); err != nil {
 		return
 	}

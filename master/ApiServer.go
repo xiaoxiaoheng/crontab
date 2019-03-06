@@ -1,12 +1,12 @@
 package master
 
 import (
-	"net/http"
-	"net"
-	"time"
-	"strconv"
-	"github.com/owenliang/crontab/common"
 	"encoding/json"
+	"github.com/owenliang/crontab/common"
+	"net"
+	"net/http"
+	"strconv"
+	"time"
 )
 
 // 任务的HTTP接口
@@ -242,6 +242,7 @@ func InitApiServer() (err error){
 
 	// 静态文件目录
 	staticDir = http.Dir(G_config.WebRoot)
+	// 文件系统Handler
 	staticHandler = http.FileServer(staticDir)
 	mux.Handle("/", http.StripPrefix("/", staticHandler))	//   ./webroot/index.html
 
